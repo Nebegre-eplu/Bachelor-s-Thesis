@@ -9,7 +9,7 @@ from modules import call_Groq
 eng = matlab.engine.connect_matlab()
 #eng = matlab.engine.start_matlab("-desktop")
 #eng = matlab.engine.start_matlab("")
-eng.cd(r"C:\Users\datoa\Desktop\Maschera", nargout=0)
+eng.cd(r"C:\Mio_percorso", nargout=0)
 #eng.open_system("traiettoriaControlPD", nargout=0)
 
 
