@@ -3,7 +3,12 @@ import itertools
 import groq
 from groq import Groq  
 
-
+GROQ_API_KEYS = [
+    "my_key1",
+    "my_key2",
+    ...
+    "my_keyn"
+    ]
 
 clients = [Groq(api_key=k) for k in GROQ_API_KEYS]
 client_iterator = itertools.cycle(clients) #Round robin sulle chiavi
