@@ -10,7 +10,7 @@ from prompts import SYSTEM_PROMPT
 from prompts import PHYSICAL_TEST_PROMPTS
 
 eng = matlab.engine.connect_matlab()
-eng.cd(r"C:\Users\datoa\Desktop\Maschera", nargout=0)
+eng.cd(r"C:\Mio_percorso", nargout=0)
 
 
 
@@ -66,8 +66,32 @@ def run_test_battery():
             #vorrei un tempo di reset (dove torna al centro) tra i due 
             put_workspace(reset_json)
             time.sleep(3) #1/5 del tempo di esecuzione
-         
-            
+
+#inizializzo i Simulink.Parameter, prima di interrogare il robot, con phix costantemente 0
+eng.eval("""
+if ~exist('Ax_llm', 'var') || ~isa(Ax_llm, 'Simulink.Parameter')
+    Ax_llm = Simulink.Parameter(1);
+end
+if ~exist('Ay_llm', 'var') || ~isa(Ay_llm, 'Simulink.Parameter')
+    Ay_llm = Simulink.Parameter(0);
+end
+if ~exist('bx_llm', 'var') || ~isa(bx_llm, 'Simulink.Parameter')
+    bx_llm = Simulink.Parameter(0);
+end
+if ~exist('by_llm', 'var') || ~isa(by_llm, 'Simulink.Parameter')
+    by_llm = Simulink.Parameter(0);
+end
+if ~exist('fx_llm', 'var') || ~isa(fx_llm, 'Simulink.Parameter')
+    fx_llm = Simulink.Parameter(0);
+end
+if ~exist('fy_llm', 'var') || ~isa(fy_llm, 'Simulink.Parameter')
+    fy_llm = Simulink.Parameter(0);
+end
+phix_llm = Simulink.Parameter(0);
+if ~exist('phi_llm', 'var') || ~isa(phiy_llm, 'Simulink.Parameter')
+    phi_llm = Simulink.Parameter(0);
+end
+""", nargout=0)
 
 run_test_battery()
 eng.disconnect()
